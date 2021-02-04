@@ -70,7 +70,6 @@ app.delete("/repositories/:id", (req, res) => {
 
 app.post("/repositories/:id/like", (req, res) => {
   const {id} = req.params
-  const {title, url, techs} = req.body
   const currentItemIndex = repositories.findIndex(({id: repoID}) => repoID === id)
 
   if (currentItemIndex < 0) {

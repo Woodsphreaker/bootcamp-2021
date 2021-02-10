@@ -1,9 +1,9 @@
-import express from 'express'
 import routes from './routes'
+import { serverFactory } from './factories'
 
-const app = express()
+const { createApp } = serverFactory
 
-app.use(express.json())
+const app = createApp()
 app.use(routes)
 
 export default app

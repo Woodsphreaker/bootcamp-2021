@@ -1,9 +1,8 @@
-import { Router } from 'express'
+import { routerFactory } from '../factories'
+import appointmentsRouter from './appointments.router'
 
-const router = Router()
+const router = routerFactory()
 
-router.get('/', (req, res) => {
-  res.json({ message: 'ok' })
-})
+router.use('/appointments', appointmentsRouter)
 
 export default router

@@ -1,7 +1,13 @@
 import Appointment from '../models/Appointments'
 
-interface Func {
-  (date: Date, compare: Date): boolean
+interface FindByDateDTO {
+  date: Date
+  isEqual: (date: Date, compare: Date) => boolean
+}
+
+interface AppointmentDTO {
+  provider: string
+  date: Date
 }
 
 class AppointmentsRepository {
@@ -11,11 +17,11 @@ class AppointmentsRepository {
 
   private appointment: Appointment[]
 
-  public list(): Appointment[] {
+  public listAll(): Appointment[] {
     return this.appointment
   }
 
-  public create(provider: string, date: Date): Appointment {
+  public create({ date, provider }: AppointmentDTO): Appointment {
     const appointment = new Appointment(provider, date)
 
     this.appointment.push(appointment)
@@ -23,7 +29,10 @@ class AppointmentsRepository {
     return appointment
   }
 
-  public findAppointmentByDate(date: Date, isEqual: Func): Appointment | null {
+  public findAppointmentByDate({
+    date,
+    isEqual,
+  }: FindByDateDTO): Appointment | null {
     const foundedAppointment = this.appointment.find((appointment) =>
       isEqual(date, appointment.date)
     )

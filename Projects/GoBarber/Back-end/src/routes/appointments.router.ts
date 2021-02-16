@@ -7,17 +7,17 @@ const router = routerFactory()
 const appointmentRepository = new AppointmentsRepository()
 
 router.get('/', (req, res) => {
-  res.json(appointmentRepository.list())
+  res.json(appointmentRepository.listAll())
 })
 
 router.post('/', (req, res) => {
   const { provider, date } = req.body
 
   const parsedDate = startOfHour(parseISO(date))
-  const hasAppointmentInSameDay = appointmentRepository.findAppointmentByDate(
-    parsedDate,
-    isEqual
-  )
+  const hasAppointmentInSameDay = appointmentRepository.findAppointmentByDate({
+    date: parsedDate,
+    isEqual,
+  })
 
   if (hasAppointmentInSameDay) {
     return res
@@ -25,18 +25,18 @@ router.post('/', (req, res) => {
       .json({ message: 'This appointments is already exists' })
   }
 
-  // const appointment = {
-  //   id: v4(),
-  //   provider,
-  //   date: parsedDate,
-  // }
-  const appointment = appointmentRepository.create(provider, parsedDate)
+  const appointment = appointmentRepository.create({
+    provider,
+    date: parsedDate,
+  })
 
   res.json(appointment)
 })
+
 router.put('/', (req, res) => {
   res.json({ message: 'route2' })
 })
+
 router.delete('/', (req, res) => {
   res.json({ message: 'route3' })
 })

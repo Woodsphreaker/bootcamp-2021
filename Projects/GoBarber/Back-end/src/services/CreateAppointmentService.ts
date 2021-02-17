@@ -1,10 +1,10 @@
 import Appointments from '../models/Appointments'
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
+import { startOfHour, parseISO, isEqual } from 'date-fns'
 
 interface CreateAppointmentDTO {
   provider: string
-  date: Date
-  isEqual: (date: Date, compareDate: Date) => boolean
+  date: string
 }
 
 class CreateAppointmentService {
@@ -14,14 +14,12 @@ class CreateAppointmentService {
     this.appointmentRepository = appointmentRepository
   }
 
-  public execute({
-    provider,
-    date,
-    isEqual,
-  }: CreateAppointmentDTO): Appointments {
+  public execute({ provider, date }: CreateAppointmentDTO): Appointments {
+    const parsedDate = startOfHour(parseISO(date))
+
     const hasAppointmentInSameDay = this.appointmentRepository.findAppointmentByDate(
       {
-        date,
+        date: parsedDate,
         isEqual,
       }
     )
@@ -32,7 +30,7 @@ class CreateAppointmentService {
 
     const appointment = this.appointmentRepository.create({
       provider,
-      date,
+      date: parsedDate,
     })
 
     return appointment

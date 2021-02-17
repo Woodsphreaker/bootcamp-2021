@@ -1,6 +1,4 @@
 import { routerFactory } from '../factories'
-import { startOfHour, parseISO, isEqual } from 'date-fns'
-
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointmentService'
 
@@ -14,16 +12,13 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { provider, date } = req.body
 
-  const parsedDate = startOfHour(parseISO(date))
-
   try {
     const createAppointmentService = new CreateAppointmentService(
       appointmentRepository
     )
     const appointment = createAppointmentService.execute({
-      date: parsedDate,
+      date,
       provider,
-      isEqual,
     })
 
     res.json(appointment)

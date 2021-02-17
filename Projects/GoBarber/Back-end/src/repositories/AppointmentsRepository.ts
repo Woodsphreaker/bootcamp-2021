@@ -11,11 +11,11 @@ interface AppointmentDTO {
 }
 
 class AppointmentsRepository {
+  private appointment: Appointment[]
+
   constructor() {
     this.appointment = []
   }
-
-  private appointment: Appointment[]
 
   public listAll(): Appointment[] {
     return this.appointment

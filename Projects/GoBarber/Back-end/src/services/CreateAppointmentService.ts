@@ -1,6 +1,7 @@
+import { parseISO, startOfHour } from 'date-fns'
+import { getCustomRepository } from 'typeorm'
 import Appointments from '../models/Appointments'
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
-import { startOfHour, parseISO, isEqual } from 'date-fns'
 
 interface CreateAppointmentDTO {
   provider: string
@@ -8,19 +9,16 @@ interface CreateAppointmentDTO {
 }
 
 class CreateAppointmentService {
-  private appointmentRepository: AppointmentsRepository
-
-  constructor(appointmentRepository: AppointmentsRepository) {
-    this.appointmentRepository = appointmentRepository
-  }
-
-  public execute({ provider, date }: CreateAppointmentDTO): Appointments {
+  public async execute({
+    provider,
+    date,
+  }: CreateAppointmentDTO): Promise<Appointments> {
     const parsedDate = startOfHour(parseISO(date))
+    const appointmentRepository = getCustomRepository(AppointmentsRepository)
 
-    const hasAppointmentInSameDay = this.appointmentRepository.findAppointmentByDate(
+    const hasAppointmentInSameDay = await appointmentRepository.findAppointmentByDate(
       {
         date: parsedDate,
-        isEqual,
       }
     )
 
@@ -28,7 +26,7 @@ class CreateAppointmentService {
       throw new Error('This appointments is already exists')
     }
 
-    const appointment = this.appointmentRepository.create({
+    const appointment = appointmentRepository.add({
       provider,
       date: parsedDate,
     })

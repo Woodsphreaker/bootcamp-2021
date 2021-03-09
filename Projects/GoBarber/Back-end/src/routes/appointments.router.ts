@@ -1,22 +1,26 @@
+import { getCustomRepository } from 'typeorm'
 import { routerFactory } from '../factories'
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointmentService'
 
 const router = routerFactory()
-const appointmentRepository = new AppointmentsRepository()
 
-router.get('/', (req, res) => {
-  res.json(appointmentRepository.listAll())
+router.get('/', async (req, res) => {
+  try {
+    const appointmentRepository = getCustomRepository(AppointmentsRepository)
+    const appointments = await appointmentRepository.listAll()
+    res.json(appointments)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { provider, date } = req.body
 
   try {
-    const createAppointmentService = new CreateAppointmentService(
-      appointmentRepository
-    )
-    const appointment = createAppointmentService.execute({
+    const createAppointmentService = new CreateAppointmentService()
+    const appointment = await createAppointmentService.execute({
       date,
       provider,
     })

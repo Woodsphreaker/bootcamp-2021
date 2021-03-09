@@ -26,7 +26,7 @@ class CreateAppointmentService {
       throw new Error('This appointments is already exists')
     }
 
-    const appointment = appointmentRepository.add({
+    const appointment = await appointmentRepository.add({
       provider,
       date: parsedDate,
     })

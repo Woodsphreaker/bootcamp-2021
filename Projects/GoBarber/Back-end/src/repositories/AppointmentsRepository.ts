@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { EntityRepository, Repository } from 'typeorm'
 import Appointment from '../models/Appointments'
 
@@ -6,7 +7,7 @@ interface FindByDateDTO {
 }
 
 interface CreateAppointmentDTO {
-  provider: string
+  provider_id: string
   date: Date
 }
 
@@ -18,10 +19,10 @@ class AppointmentsRepository extends Repository<Appointment> {
   }
 
   public async add({
-    provider,
+    provider_id,
     date,
   }: CreateAppointmentDTO): Promise<Appointment> {
-    const appointment = this.create({ provider, date })
+    const appointment = this.create({ provider_id, date })
     await this.save(appointment)
     return appointment
   }

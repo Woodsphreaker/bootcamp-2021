@@ -1,16 +1,17 @@
+/* eslint-disable camelcase */
 import { parseISO, startOfHour } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
 import Appointments from '../models/Appointments'
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
 
 interface CreateAppointmentDTO {
-  provider: string
+  provider_id: string
   date: string
 }
 
 class CreateAppointmentService {
   public async execute({
-    provider,
+    provider_id,
     date,
   }: CreateAppointmentDTO): Promise<Appointments> {
     const parsedDate = startOfHour(parseISO(date))
@@ -27,7 +28,7 @@ class CreateAppointmentService {
     }
 
     const appointment = await appointmentRepository.add({
-      provider,
+      provider_id,
       date: parsedDate,
     })
 

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { getCustomRepository } from 'typeorm'
 import { routerFactory } from '../factories'
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
@@ -16,13 +17,13 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { provider, date } = req.body
+  const { provider: provider_id, date } = req.body
 
   try {
     const createAppointmentService = new CreateAppointmentService()
     const appointment = await createAppointmentService.execute({
       date,
-      provider,
+      provider_id,
     })
 
     res.json(appointment)

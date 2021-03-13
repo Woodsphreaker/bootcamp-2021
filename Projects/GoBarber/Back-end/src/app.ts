@@ -1,5 +1,5 @@
-import routes from './routes'
-import { serverFactory } from './factories'
+import routes from '@Routes'
+import { serverFactory } from '@Factories'
 
 import 'reflect-metadata'
 import './database'

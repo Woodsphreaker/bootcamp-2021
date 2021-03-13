@@ -16,7 +16,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "import"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -25,6 +26,25 @@
       "ignorePackages",
       {
         "ts": "never"
+      }
+    ],
+   "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "src/**",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc", /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */
+          "caseInsensitive": true /* ignore case. Options: [true, false] */
+        }
       }
     ]
   },

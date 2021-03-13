@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 
 function createApp(): express.Express {
   const app = express()
@@ -6,4 +6,4 @@ function createApp(): express.Express {
   return app
 }
 
-export { createApp, express as server }
+export { createApp, express as server, Response, Request }

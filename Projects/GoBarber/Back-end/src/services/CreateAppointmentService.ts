@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { parseISO, startOfHour } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
-import Appointments from '../models/Appointments'
-import AppointmentsRepository from '../repositories/AppointmentsRepository'
+
+import Appointments from '@Models/Appointments'
+import AppointmentsRepository from '@Repositories/AppointmentsRepository'
 
 interface CreateAppointmentDTO {
   provider_id: string

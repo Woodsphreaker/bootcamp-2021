@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { EntityRepository, Repository } from 'typeorm'
-import Appointment from '../models/Appointments'
+
+import Appointment from '@Models/Appointments'
 
 interface FindByDateDTO {
   date: Date

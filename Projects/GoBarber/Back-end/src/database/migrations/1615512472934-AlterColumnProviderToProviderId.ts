@@ -12,7 +12,7 @@ class AlterColumnProviderToProviderId1615512472934
 
     await queryRunner.addColumn(
       'appointments',
-      new TableColumn({ name: 'provider_id', type: 'uuid', isNullable: true })
+      new TableColumn({ name: 'provider_id', type: 'uuid', isNullable: false })
     )
 
     await queryRunner.createForeignKey(

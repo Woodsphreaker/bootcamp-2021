@@ -19,7 +19,7 @@ const index = async (req: Request, res: Response): Promise<Response> => {
 // const show = () => {}
 
 const store = async (req: Request, res: Response): Promise<Response> => {
-  const { provider: provider_id, date } = req.body
+  const { provider_id, date } = req.body
 
   try {
     const createAppointmentService = new CreateAppointmentService()

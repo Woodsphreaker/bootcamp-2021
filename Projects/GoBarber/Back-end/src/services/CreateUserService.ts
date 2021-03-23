@@ -11,7 +11,11 @@ interface UserDTO {
 }
 
 class CreateUserService {
-  public async execute({ name, email, password }: UserDTO): Promise<Users> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: UserDTO): Promise<Users | undefined> {
     const userRepository = getCustomRepository(UserRepository)
     const findUserWithEmail = await userRepository.findOne({ where: { email } })
 

@@ -15,10 +15,14 @@ class UserRepository extends Repository<User> {
     return users
   }
 
-  public async add({ name, email, password }: UserDTO): Promise<User> {
-    const user = this.create({ name, email, password })
-    await this.save(user)
-    return user
+  public async add({
+    name,
+    email,
+    password,
+  }: UserDTO): Promise<User | undefined> {
+    await this.save(this.create({ name, email, password }))
+    const newUser = await this.findOne({ where: { email } })
+    return newUser
   }
 }
 

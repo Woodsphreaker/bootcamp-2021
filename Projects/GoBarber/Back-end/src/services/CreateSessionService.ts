@@ -1,8 +1,10 @@
 import { compare } from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import { getCustomRepository } from 'typeorm'
 
-import User from '@Models/Users'
 import UserRepository from '@Repositories/UsersRepository'
+
+import authConfig from '../config/auth'
 
 interface UserDTO {
   email: string
@@ -10,7 +12,7 @@ interface UserDTO {
 }
 
 interface Response {
-  user: User
+  token: string
 }
 
 class CreateSessionService {
@@ -33,8 +35,12 @@ class CreateSessionService {
       throw new Error('Password not match') // only example message - write better message to return
     }
 
+    const token = jwt.sign({ id: user.id }, authConfig.secret, {
+      expiresIn: authConfig.expiresIn,
+    })
+
     return {
-      user,
+      token,
     }
   }
 }

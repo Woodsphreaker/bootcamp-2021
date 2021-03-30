@@ -7,10 +7,8 @@ const store = async (req: Request, res: Response): Promise<Response> => {
 
   try {
     const createSession = new CreateSessionService()
-    const {
-      user: { id, name },
-    } = await createSession.execute({ email, password })
-    return res.json({ id, name })
+    const { token } = await createSession.execute({ email, password })
+    return res.json({ token })
   } catch (error) {
     return res.status(400).json({ error: error.message })
   }

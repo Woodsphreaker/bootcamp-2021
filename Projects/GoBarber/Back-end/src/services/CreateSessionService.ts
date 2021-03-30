@@ -36,6 +36,7 @@ class CreateSessionService {
     }
 
     const token = jwt.sign({ id: user.id }, authConfig.secret, {
+      subject: user.id,
       expiresIn: authConfig.expiresIn,
     })
 

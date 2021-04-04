@@ -12,15 +12,11 @@ interface UserAvatarDTO {
 }
 
 class UpdateUserAvatarService {
-  public async execute({
-    id,
-    avatarFileName,
-  }: UserAvatarDTO): Promise<Users | null> {
+  public async execute({ id, avatarFileName }: UserAvatarDTO): Promise<Users> {
     const userRepository = getCustomRepository(UserRepository)
     const user = await userRepository.findOne({ where: { id } })
 
     if (!user) {
-      console.log('user not found', avatarFileName)
       throw new Error('user not found')
     }
 

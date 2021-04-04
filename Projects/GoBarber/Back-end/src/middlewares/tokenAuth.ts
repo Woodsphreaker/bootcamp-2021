@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
 
+import AppError from '@Errors/AppError'
+
 import authConfig from '../config/auth'
 import { Request, Response, NextFunction } from '~/factories/server.factory'
 
@@ -18,22 +20,27 @@ export default (
   const { authorization } = req.headers
 
   if (!authorization) {
-    return res.status(401).json({ error: 'not authorized' })
+    throw new AppError('not authorized', 401)
+
+    // return res.status(401).json({ error: 'not authorized' })
   }
 
   const [bearer, token] = authorization.split(' ')
 
   if (!bearer) {
-    return res.status(401).json({ error: 'not standard authorization header' })
+    throw new AppError('not standard authorization header', 401)
+    // return res.status(401).json({ error: 'not standard authorization header' })
   }
 
   if (!token) {
-    return res.status(401).json({ error: 'missing token' })
+    throw new AppError('missing token', 401)
+    // return res.status(401).json({ error: 'missing token' })
   }
 
   jwt.verify(token, authConfig.secret, (error, decode) => {
     if (error) {
-      return res.status(401).json({ error: 'invalid token' })
+      throw new AppError('invalid token', 401)
+      // return res.status(401).json({ error: 'invalid token' })
     }
 
     const { id } = decode as TokenResponse

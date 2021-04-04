@@ -1,5 +1,5 @@
 import appointmentsController from '@Controllers/appointmentsController'
-import { routerFactory } from '@Factories'
+import routerFactory from '@Factories/router.factory'
 import tokenAuth from '@Middlewares/tokenAuth'
 
 const router = routerFactory()

@@ -2,6 +2,7 @@ import { compare } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { getCustomRepository } from 'typeorm'
 
+import AppError from '@Errors/AppError'
 import UserRepository from '@Repositories/UsersRepository'
 
 import authConfig from '../config/auth'
@@ -26,13 +27,13 @@ class CreateSessionService {
       .getOne()
 
     if (!user) {
-      throw new Error('User not found or password is incorrect')
+      throw new AppError('User not found or password is incorrect', 401)
     }
 
     const matchWithEncryptedPassword = await compare(password, user.password)
 
     if (!matchWithEncryptedPassword) {
-      throw new Error('Password not match') // only example message - write better message to return
+      throw new AppError('Password not match', 401) // only example message - write better message to return
     }
 
     const token = jwt.sign({ id: user.id }, authConfig.secret, {

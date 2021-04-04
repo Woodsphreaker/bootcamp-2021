@@ -46,13 +46,14 @@
     "baseUrl": "./src",                       /* Base directory to resolve non-absolute module names. */
     "paths": {
       "@Controllers/*": ["controllers/*"],
+      "@Errors/*": ["errors/*"],
+      "@Factories/*": ["factories/*"],
+      "@Middlewares/*": ["middlewares/*"],
       "@Models/*": ["models/*"],
       "@Repositories/*": ["repositories/*"],
-      "@Services/*": ["services/*"],
-      "@Middlewares/*": ["middlewares/*"],
-      "@Tools/*": ["tools/*"],
       "@Routes": ["routes"],
-      "@Factories": ["factories"],
+      "@Services/*": ["services/*"],
+      "@Tools/*": ["tools/*"],
       "~/*": ["./*"]
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */

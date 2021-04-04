@@ -2,6 +2,7 @@
 import { parseISO, startOfHour } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
 
+import AppError from '@Errors/AppError'
 import Appointments from '@Models/Appointments'
 import AppointmentsRepository from '@Repositories/AppointmentsRepository'
 
@@ -25,7 +26,7 @@ class CreateAppointmentService {
     )
 
     if (hasAppointmentInSameDay) {
-      throw new Error('This appointments is already exists')
+      throw new AppError('This appointments is already exists', 400)
     }
 
     const appointment = await appointmentRepository.add({

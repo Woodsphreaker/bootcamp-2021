@@ -1,5 +1,6 @@
 import { getCustomRepository } from 'typeorm'
 
+import AppError from '@Errors/AppError'
 import Users from '@Models/Users'
 import UserRepository from '@Repositories/UsersRepository'
 import { deleteFile } from '@Tools/fsTools'
@@ -17,7 +18,7 @@ class UpdateUserAvatarService {
     const user = await userRepository.findOne({ where: { id } })
 
     if (!user) {
-      throw new Error('user not found')
+      throw new AppError('user not found', 400)
     }
 
     await deleteFile(appPaths.uploadFolder, user.avatar)

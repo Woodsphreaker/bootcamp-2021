@@ -1,5 +1,5 @@
 import sessionsController from '@Controllers/sessionsController'
-import { routerFactory } from '@Factories'
+import routerFactory from '@Factories/router.factory'
 
 const router = routerFactory()
 

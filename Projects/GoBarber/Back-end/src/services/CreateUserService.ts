@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
 
+import AppError from '@Errors/AppError'
 import Users from '@Models/Users'
 import UserRepository from '@Repositories/UsersRepository'
 
@@ -20,7 +21,7 @@ class CreateUserService {
     const findUserWithEmail = await userRepository.findOne({ where: { email } })
 
     if (findUserWithEmail) {
-      throw new Error('User already exists with this email')
+      throw new AppError('User already exists with this email', 400)
     }
 
     const encryptedPassword = await hash(password, 8)

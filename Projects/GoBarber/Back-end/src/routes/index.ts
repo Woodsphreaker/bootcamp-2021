@@ -1,4 +1,5 @@
-import { routerFactory } from '../factories'
+import routerFactory from '@Factories/router.factory'
+
 import appointmentsRouter from './appointments.routes'
 import sessionsRoutes from './sessions.routes'
 import usersRouter from './users.routes'

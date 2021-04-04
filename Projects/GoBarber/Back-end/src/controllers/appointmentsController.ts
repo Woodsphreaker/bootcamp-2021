@@ -7,13 +7,9 @@ import CreateAppointmentService from '@Services/CreateAppointmentService'
 import { Request, Response } from '~/factories/server.factory'
 
 const index = async (req: Request, res: Response): Promise<Response> => {
-  try {
-    const appointmentRepository = getCustomRepository(AppointmentsRepository)
-    const appointments = await appointmentRepository.listAll()
-    return res.json(appointments)
-  } catch (error) {
-    return res.status(400).json({ message: error.message })
-  }
+  const appointmentRepository = getCustomRepository(AppointmentsRepository)
+  const appointments = await appointmentRepository.listAll()
+  return res.json(appointments)
 }
 
 // const show = () => {}
@@ -21,17 +17,13 @@ const index = async (req: Request, res: Response): Promise<Response> => {
 const store = async (req: Request, res: Response): Promise<Response> => {
   const { provider_id, date } = req.body
 
-  try {
-    const createAppointmentService = new CreateAppointmentService()
-    const appointment = await createAppointmentService.execute({
-      date,
-      provider_id,
-    })
+  const createAppointmentService = new CreateAppointmentService()
+  const appointment = await createAppointmentService.execute({
+    date,
+    provider_id,
+  })
 
-    return res.json(appointment)
-  } catch (error) {
-    return res.status(400).json({ message: error.message })
-  }
+  return res.json(appointment)
 }
 
 // const update = () => {}

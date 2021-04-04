@@ -2,6 +2,7 @@ import { getCustomRepository } from 'typeorm'
 
 import UserRepository from '@Repositories/UsersRepository'
 import CreateUserService from '@Services/CreateUserService'
+import UpdateUserAvatarService from '@Services/UpdateUserAvatarService'
 
 import { Request, Response } from '~/factories/server.factory'
 
@@ -27,4 +28,22 @@ const store = async (req: Request, res: Response): Promise<Response> => {
   }
 }
 
-export default { index, store }
+const update = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.user
+  const { filename } = req.file
+
+  const updateAvatarService = new UpdateUserAvatarService()
+
+  try {
+    const user = await updateAvatarService.execute({
+      id,
+      avatarFileName: filename,
+    })
+
+    return res.json({ user })
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
+}
+
+export default { index, store, update }

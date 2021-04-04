@@ -50,6 +50,7 @@
       "@Repositories/*": ["repositories/*"],
       "@Services/*": ["services/*"],
       "@Middlewares/*": ["middlewares/*"],
+      "@Tools/*": ["tools/*"],
       "@Routes": ["routes"],
       "@Factories": ["factories"],
       "~/*": ["./*"]

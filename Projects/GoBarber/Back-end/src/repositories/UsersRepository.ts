@@ -3,9 +3,11 @@ import { EntityRepository, Repository } from 'typeorm'
 import User from '@Models/Users'
 
 interface UserDTO {
+  id?: string
   name: string
   email: string
   password: string
+  avatar?: string
 }
 
 @EntityRepository(User)

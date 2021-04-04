@@ -42,7 +42,7 @@ export default (
       id,
     }
 
-    console.log(decode)
+    // console.log(decode)
 
     next()
   })

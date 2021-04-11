@@ -4,6 +4,7 @@ import transactionController from '../controllers/transactionController';
 const transactionsRouter = Router();
 
 transactionsRouter.get('/', transactionController.index);
+transactionsRouter.post('/', transactionController.store);
 
 // import TransactionsRepository from '../repositories/TransactionsRepository';
 // import CreateTransactionService from '../services/CreateTransactionService';

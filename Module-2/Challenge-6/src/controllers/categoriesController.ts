@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import CreateCategoryService from '../services/CreateCategoryService';
 
 import CategoriesRepository from '../repositories/CategoriesRepository';
 
@@ -10,4 +11,13 @@ const index = async (req: Request, res: Response): Promise<Response> => {
   return res.json(categories);
 };
 
-export default { index };
+const store = async (req: Request, res: Response): Promise<Response> => {
+  const { title } = req.body;
+
+  const createCategoryService = new CreateCategoryService();
+  const newCategory = await createCategoryService.execute(title);
+
+  return res.json(newCategory);
+};
+
+export default { index, store };

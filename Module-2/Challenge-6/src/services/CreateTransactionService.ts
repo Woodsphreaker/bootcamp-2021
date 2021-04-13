@@ -3,7 +3,7 @@
 import { getCustomRepository } from 'typeorm';
 import Transaction from '../models/Transaction';
 import TransactionsRepository from '../repositories/TransactionsRepository';
-import CreateCategory from './CreateCategoryService';
+import CreateCategoryService from './CreateCategoryService';
 
 interface TransactionDTO {
   title: string;
@@ -19,8 +19,8 @@ class CreateTransactionService {
     type,
     category,
   }: TransactionDTO): Promise<Transaction> {
-    const createCategory = new CreateCategory();
-    const { id: category_id } = await createCategory.execute(category);
+    const createCategoryService = new CreateCategoryService();
+    const { id: category_id } = await createCategoryService.execute(category);
 
     const transactionRepository = getCustomRepository(TransactionsRepository);
 

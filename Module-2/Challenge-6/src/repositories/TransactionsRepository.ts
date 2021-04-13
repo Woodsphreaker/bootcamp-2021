@@ -18,7 +18,7 @@ interface TransactionDTO {
 @EntityRepository(Transaction)
 class TransactionsRepository extends Repository<Transaction> {
   public async listAll(): Promise<Transaction[]> {
-    const transactions = await this.find();
+    const transactions = await this.find({ relations: ['category'] });
     return transactions;
   }
 

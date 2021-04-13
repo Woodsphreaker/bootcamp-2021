@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreateTransactionService from '../services/CreateTransactionService';
 import ListTransactionsService from '../services/ListTransactionsService';
+import DeleteTransactionService from '../services/DeleteTransactionService';
 
 const index = async (req: Request, res: Response): Promise<Response> => {
   const transactionRepository = new ListTransactionsService();
@@ -22,4 +23,13 @@ const store = async (req: Request, res: Response): Promise<Response> => {
   return res.json(newTransaction);
 };
 
-export default { index, store };
+const destroy = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+
+  const deleteTransactionService = new DeleteTransactionService();
+  await deleteTransactionService.execute(id);
+
+  return res.json({ status: 'transaction removed' });
+};
+
+export default { index, store, destroy };

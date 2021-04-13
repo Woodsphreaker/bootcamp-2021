@@ -34,10 +34,6 @@ class TransactionsRepository extends Repository<Transaction> {
 
     return transaction;
   }
-
-  // public async getBalance(): Promise<Balance> {
-  //   // TODO
-  // }
 }
 
 export default TransactionsRepository;

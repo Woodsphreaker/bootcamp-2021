@@ -5,6 +5,7 @@ const transactionsRouter = Router();
 
 transactionsRouter.get('/', transactionController.index);
 transactionsRouter.post('/', transactionController.store);
+transactionsRouter.delete('/:id', transactionController.destroy);
 
 // import TransactionsRepository from '../repositories/TransactionsRepository';
 // import CreateTransactionService from '../services/CreateTransactionService';

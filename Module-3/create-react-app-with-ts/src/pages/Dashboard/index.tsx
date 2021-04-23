@@ -1,10 +1,18 @@
 import React from 'react';
 
-import {Title} from './styles';
+import { LogoGit, Title, Form } from './styles';
 
 const Dashboard: React.FC = () => {
   return (
-    <Title>Dashboard</Title>
+    <>
+      <LogoGit />
+      <Title>Explore repositórios no Github.</Title>
+
+      <Form>
+        <input type="text" name="" id="" placeholder="Digite no nome do repositório"/>
+        <button type="submit">Pesquisar</button>
+      </Form>
+    </>
   )
 }
 

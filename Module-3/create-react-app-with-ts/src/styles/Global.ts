@@ -1,6 +1,6 @@
-import {createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
-import backgroundImage from '../assets/background-git-logo.svg'
+import backgroundImage from '../assets/background-git-logo.svg';
 
 export default createGlobalStyle`
   * {
@@ -11,7 +11,7 @@ export default createGlobalStyle`
   }
 
   html, body, #root {
-    height: 100%;
+    min-height: 100%;
     width: 100%
   }
 
@@ -37,4 +37,4 @@ export default createGlobalStyle`
     padding: 40px 20px;
     border: 1px solid;
   }
-`
+`;

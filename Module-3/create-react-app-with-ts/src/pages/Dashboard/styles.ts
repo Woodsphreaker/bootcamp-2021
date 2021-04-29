@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import logoGit from '../../assets/git-logo.svg'
-import {darken} from 'polished'
+import logoGit from '../../assets/git-logo.svg';
+import { darken } from 'polished';
+import { FiChevronRight } from 'react-icons/fi';
 
 export const Container = styled.div``;
 
 export const LogoGit = styled.img.attrs({
-  src: logoGit
-})``
+  src: logoGit,
+})``;
 
 export const Title = styled.h1`
   font-size: 48px;
@@ -14,10 +15,10 @@ export const Title = styled.h1`
   margin-top: 80px;
   max-width: 450px;
   line-height: 56px;
-`
+`;
 
 export const Form = styled.form`
-  display: flex;  
+  display: flex;
   margin-top: 40px;
   max-width: 700px;
 
@@ -47,5 +48,55 @@ export const Form = styled.form`
       background: ${darken(0.1, '#04d361')};
     }
   }
-`
+`;
 
+export const Repositories = styled.div`
+  max-width: 700px;
+  margin-top: 80px;
+
+  > a {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+
+    :hover {
+      transform: translateX(10px);
+      background-color: ${darken(0.03, '#fff')};
+    }
+
+    & + a {
+      margin-top: 10px;
+    }
+  }
+`;
+
+export const UserAvatar = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+`;
+
+export const RepoDescription = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0 20px;
+
+  > strong {
+    font-size: 20px;
+    color: #3d3d4d;
+  }
+
+  > span {
+    font-size: 18px;
+    color: #a8a8b3;
+  }
+`;
+
+export const ArrowIcon = styled(FiChevronRight)`
+  color: #cbcbd6;
+`;

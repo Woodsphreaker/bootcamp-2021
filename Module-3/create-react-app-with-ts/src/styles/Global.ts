@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
-import backgroundImage from '../assets/background-git-logo.svg';
+import backgroundImage from '../assets/background-git-logo.svg'
 
 export default createGlobalStyle`
   * {
@@ -35,6 +35,5 @@ export default createGlobalStyle`
     max-width: 960px;
     margin: 0 auto;
     padding: 40px 20px;
-    border: 1px solid;
   }
-`;
+`

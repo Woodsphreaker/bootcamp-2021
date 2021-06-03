@@ -1,7 +1,11 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import logoGit from '../../assets/git-logo.svg'
 import { darken } from 'polished'
 import { FiChevronRight } from 'react-icons/fi'
+
+interface FormProps {
+  hasError: boolean
+}
 
 export const Container = styled.div``
 
@@ -17,7 +21,7 @@ export const Title = styled.h1`
   line-height: 56px;
 `
 
-export const Form = styled.form`
+export const Form = styled.form<FormProps>`
   display: flex;
   margin-top: 40px;
   max-width: 700px;
@@ -29,6 +33,13 @@ export const Form = styled.form`
     border: 0;
     border-radius: 5px 0 0 5px;
     color: #3a3a3a;
+
+    ${({ hasError }) =>
+      hasError &&
+      css`
+        border: 1px solid #c53030;
+        border-right: 0;
+      `}
 
     ::placeholder {
       color: #a8a8b3;
@@ -99,4 +110,10 @@ export const RepoDescription = styled.div`
 
 export const ArrowIcon = styled(FiChevronRight)`
   color: #cbcbd6;
+`
+
+export const ErrorMessage = styled.span`
+  display: block;
+  margin-top: 8px;
+  color: #c53030;
 `

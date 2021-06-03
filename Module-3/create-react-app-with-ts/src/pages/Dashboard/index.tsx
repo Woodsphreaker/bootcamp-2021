@@ -9,6 +9,7 @@ import {
   UserAvatar,
   RepoDescription,
   ArrowIcon,
+  ErrorMessage,
 } from './styles'
 
 interface RepoProps {
@@ -22,9 +23,17 @@ interface RepoProps {
   description: string
 }
 
+interface IErrorProps {
+  hasError: boolean
+  message?: string
+}
+
 const Dashboard: React.FC = () => {
   const [repositories, setRepositories] = useState<RepoProps[]>([])
   const [repoName, setRepoName] = useState('')
+  const [errorProps, setErrorMessage] = useState<IErrorProps>({
+    hasError: false,
+  })
 
   const handleRepoNameChange = ({
     target: { value },
@@ -32,8 +41,17 @@ const Dashboard: React.FC = () => {
     setRepoName(value)
   }
 
-  const handleSubmit = (event: FormEvent): void => {
+  const handleSubmit = (event: FormEvent): void | boolean => {
     event.preventDefault()
+
+    if (!repoName) {
+      setErrorMessage({
+        hasError: true,
+        message: 'Digite o nome do autor/repositório',
+      })
+      return false
+    }
+
     findRepoByName()
   }
 
@@ -53,8 +71,9 @@ const Dashboard: React.FC = () => {
         { name, full_name, description, owner: { login, avatar_url, url } },
       ])
       setRepoName('')
+      setErrorMessage({ hasError: false })
     } catch (error) {
-      console.log(error)
+      setErrorMessage({ hasError: true, message: 'Repositório não encontrado' })
     }
   }
 
@@ -63,7 +82,7 @@ const Dashboard: React.FC = () => {
       <LogoGit />
       <Title>Explore repositórios no Github.</Title>
 
-      <Form onSubmit={handleSubmit}>
+      <Form hasError={errorProps.hasError} onSubmit={handleSubmit}>
         <input
           type="text"
           name=""
@@ -74,6 +93,7 @@ const Dashboard: React.FC = () => {
         />
         <button type="submit">Pesquisar</button>
       </Form>
+      {errorProps.hasError && <ErrorMessage>{errorProps.message}</ErrorMessage>}
 
       <Repositories>
         {repositories.map(

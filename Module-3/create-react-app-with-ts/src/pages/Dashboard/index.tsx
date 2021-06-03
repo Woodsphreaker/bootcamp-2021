@@ -30,7 +30,11 @@ interface IErrorProps {
 }
 
 const Dashboard: React.FC = () => {
-  const [repositories, setRepositories] = useState<RepoProps[]>([])
+  const [repositories, setRepositories] = useState<RepoProps[]>(() =>
+    loadFromStorage({
+      storageName: '@Github:repositories',
+    }),
+  )
   const [repoName, setRepoName] = useState('')
   const [errorProps, setErrorMessage] = useState<IErrorProps>({
     hasError: false,
@@ -40,25 +44,12 @@ const Dashboard: React.FC = () => {
     const hasRepositories = repositories.length > 0
 
     if (hasRepositories) {
-      saveToStorage({ storageName: 'repositories', value: repositories })
+      saveToStorage({
+        storageName: '@Github:repositories',
+        value: repositories,
+      })
     }
   }, [repositories])
-
-  useEffect(() => {
-    const loadRepositories = () => {
-      const repositoriesFromStorage = loadFromStorage({
-        storageName: 'repositories',
-      })
-
-      const hasRepositories = repositoriesFromStorage.length > 0
-
-      if (hasRepositories) {
-        setRepositories(repositoriesFromStorage)
-      }
-    }
-
-    loadRepositories()
-  }, [])
 
   const handleRepoNameChange = ({
     target: { value },

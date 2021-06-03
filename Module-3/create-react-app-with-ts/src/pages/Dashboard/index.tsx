@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import api from '../../services/api'
 import { saveToStorage, loadFromStorage } from '../../services/localStorage'
 
@@ -113,15 +114,15 @@ const Dashboard: React.FC = () => {
 
       <Repositories>
         {repositories.map(
-          ({ name, full_name, description, owner: { avatar_url, url } }) => (
-            <a href="/" key={full_name}>
+          ({ name, full_name, description, owner: { avatar_url } }) => (
+            <Link to="repository" key={full_name}>
               <UserAvatar alt="" src={avatar_url} />
               <RepoDescription>
                 <strong>{name}</strong>
                 <span>{description}</span>
               </RepoDescription>
               <ArrowIcon size={20} />
-            </a>
+            </Link>
           ),
         )}
       </Repositories>

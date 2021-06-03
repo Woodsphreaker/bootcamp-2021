@@ -1,5 +1,6 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import api from '../../services/api'
+import { saveToStorage, loadFromStorage } from '../../services/localStorage'
 
 import {
   LogoGit,
@@ -34,6 +35,30 @@ const Dashboard: React.FC = () => {
   const [errorProps, setErrorMessage] = useState<IErrorProps>({
     hasError: false,
   })
+
+  useEffect(() => {
+    const hasRepositories = repositories.length > 0
+
+    if (hasRepositories) {
+      saveToStorage({ storageName: 'repositories', value: repositories })
+    }
+  }, [repositories])
+
+  useEffect(() => {
+    const loadRepositories = () => {
+      const repositoriesFromStorage = loadFromStorage({
+        storageName: 'repositories',
+      })
+
+      const hasRepositories = repositoriesFromStorage.length > 0
+
+      if (hasRepositories) {
+        setRepositories(repositoriesFromStorage)
+      }
+    }
+
+    loadRepositories()
+  }, [])
 
   const handleRepoNameChange = ({
     target: { value },
